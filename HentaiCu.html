@@ -68,14 +68,14 @@
             bottom: 20px;
             right: 20px;
             width: 320px;
-            max-height: 70vh; /* Altura máxima para que no se salga de la pantalla */
+            max-height: 70vh;
             background: rgba(20, 10, 35, 0.98);
             border: 2px solid #bc8aff;
             border-radius: 15px;
             padding: 15px;
             box-shadow: 0 0 25px rgba(122, 44, 255, 0.6);
             z-index: 1000;
-            overflow-y: auto; /* Permite bajar con el mouse si hay muchos videos */
+            overflow-y: auto;
         }
 
         .header-cuadro {
@@ -108,7 +108,6 @@
             font-weight: bold;
         }
 
-        /* DISEÑO DE LAS SECCIONES */
         .seccion-titulo {
             background: #2e1065;
             color: #bc8aff;
@@ -148,7 +147,6 @@
             color: #0d0216;
             font-weight: bold;
         }
-
     </style>
 </head>
 <body>
@@ -172,14 +170,10 @@
             <span>MENÚ DE CONTENIDOS</span>
             <button class="btn-cerrar" onclick="cerrarCuadro()">×</button>
         </div>
-        
-        <div id="listaMaestra">
-            </div>
+        <div id="listaMaestra"></div>
     </div>
 
     <script>
-        // --- CONFIGURACIÓN DE LOS 10 CONTENIDOS ---
-        // Aquí puedes cambiar los nombres de las secciones y los nombres de los videos.
         const contenidos = [
             {
                 titulo: "Kitsune Musume no Ecchi na Oyado", 
@@ -189,7 +183,7 @@
                     { nombre: "Part 2 Cap 2", url: "" }
                 ]
             },
-            { titulo: "Ecchi na Shintai Sokutei: Anime Edition", videos: [{ nombre: "Video 2.1", url: "" }, { nombre: "Video 2.2", url: "" }] },
+            { titulo: "Ecchi na Shintai Sokutei", videos: [{ nombre: "Video 2.1", url: "" }, { nombre: "Video 2.2", url: "" }] },
             { titulo: "Summer: Inaka no Seikatsu", videos: [{ nombre: "Video 3.1", url: "" }, { nombre: "Video 3.2", url: "" }] },
             { titulo: "Contenido 4", videos: [{ nombre: "Video 4.1", url: "" }, { nombre: "Video 4.2", url: "" }] },
             { titulo: "Contenido 5", videos: [{ nombre: "Video 5.1", url: "" }, { nombre: "Video 5.2", url: "" }] },
@@ -203,62 +197,44 @@
         function cargarMenu() {
             const lista = document.getElementById('listaMaestra');
             lista.innerHTML = '';
-
             contenidos.forEach(seccion => {
-                // Crear el título de la sección
                 const divTitulo = document.createElement('div');
                 divTitulo.className = 'seccion-titulo';
                 divTitulo.innerText = seccion.titulo;
                 lista.appendChild(divTitulo);
 
-                // Crear el grid de videos para esa sección
                 const grid = document.createElement('div');
                 grid.className = 'grid-contenidos';
-
                 seccion.videos.forEach(vid => {
                     const item = document.createElement('div');
                     item.className = 'item-video';
-                    // Si es el video inicial, marcarlo como activo
                     if(vid.url === "https://files.clonix.cam/videos/0ed4205e1625.mp4") item.classList.add('active');
-                    
                     item.innerText = vid.nombre;
                     item.onclick = function() { cambiarVideo(vid.url, vid.nombre, this); };
                     grid.appendChild(item);
                 });
-
                 lista.appendChild(grid);
             });
         }
 
-        function abrirCuadro() {
-            document.getElementById('cuadroContenidos').style.display = 'block';
-        }
-
-        function cerrarCuadro() {
-            document.getElementById('cuadroContenidos').style.display = 'none';
-        }
+        function abrirCuadro() { document.getElementById('cuadroContenidos').style.display = 'block'; }
+        function cerrarCuadro() { document.getElementById('cuadroContenidos').style.display = 'none'; }
 
         function cambiarVideo(url, nombre, elemento) {
             if(url === '') {
-                alert("Espacio disponible para: " + nombre);
+                alert("Próximamente: " + nombre);
                 return;
             }
-
             const video = document.getElementById('videoMain');
             const source = document.getElementById('videoSrc');
-
             source.src = url;
             video.load();
             video.play();
-
-            // Quitar clase activa a todos y ponerla al actual
             document.querySelectorAll('.item-video').forEach(i => i.classList.remove('active'));
             elemento.classList.add('active');
         }
 
-        // Iniciar el menú
         cargarMenu();
     </script>
-
 </body>
 </html>
