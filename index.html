@@ -223,8 +223,7 @@
             <input type="text" id="searchInput" class="search-box" placeholder="Buscar serie o capítulo..." onkeyup="filtrarContenidos()">
         </div>
         
-        <div id="listaMaestra">
-            </div>
+        <div id="listaMaestra"></div>
     </div>
 
     <script>
@@ -238,19 +237,22 @@
                 ]
             },
             { titulo: "Bocchi", videos: [{ nombre: "Bocchi en su práctica", url: "https://files.clonix.cam/videos/1859d9fa470d.mp4" }] },
-            { titulo: "El duro trabajo de Varesa", videos: [{ nombre: "Varesa",
- url:  "https://files.clonix.cam/videos/1e437866ecdd.mp4" },
+            { 
+                titulo: "El duro trabajo de Varesa", 
+                videos: [
+                    { nombre: "Varesa", url:  "https://files.clonix.cam/videos/1e437866ecdd.mp4" },
                     { nombre: "Varesa2", url: "https://files.clonix.cam/videos/8a6a394cf974.mp4" }
                 ]
-         },
-         { titulo: "Crema Batida", videos: [{ nombre: "Batido", url: "https://files.clonix.cam/videos/9961c3d179bd.mp4" }] },
+            },
+            { titulo: "Crema Batida", videos: [{ nombre: "Batido", url: "https://files.clonix.cam/videos/9961c3d179bd.mp4" }] },
             { titulo: "Mona del lago", videos: [{ nombre: "Mona", url: "https://files.clonix.cam/videos/bdd5e602bc78.mp4" }] },
             { titulo: "Ella solo quería mirar", videos: [{ nombre: "Mal vista", url: "https://files.clonix.cam/videos/3e6a33ed844a.mp4" }] },
             { titulo: "Comida de emergencia", videos: [{ nombre: "Paimon", url: "https://files.clonix.cam/videos/e0f0d8222d53.mp4" }] },
             { titulo: "yoimiyaxbeat", videos: [{ nombre: "Dance", url: "https://files.clonix.cam/videos/1d71311c16db.mp4" }] },
             { titulo: "Hombre motosierra", videos: [{ nombre: "La motosierra", url: "https://files.clonix.cam/videos/588c30d97b68.mp4" }] },
-            { titulo: "Jonas", videos: [{ nombre: "Game", url: "https://files.clonix.cam/videos/8a1ee9f727ca.mp4" }] }
-            { titulo: "Gawr Gura", videos: [{ nombre: "Tiburona", url: "https://files.catbox.moe/vuinlq.mp4" }] 
+            { titulo: "Jonas", videos: [{ nombre: "Game", url: "https://files.clonix.cam/videos/8a1ee9f727ca.mp4" }] },
+            { titulo: "Gawr Gura", videos: [{ nombre: "Tiburona", url: "https://files.catbox.moe/vuinlq.mp4" }] }
+        ];
 
         function cargarMenu(filtro = "") {
             const lista = document.getElementById('listaMaestra');
@@ -258,7 +260,6 @@
             lista.innerHTML = '';
 
             contenidos.forEach(seccion => {
-                // Filtrar videos que coincidan con la búsqueda
                 const videosFiltrados = seccion.videos.filter(vid => 
                     seccion.titulo.toLowerCase().includes(filtro.toLowerCase()) || 
                     vid.nombre.toLowerCase().includes(filtro.toLowerCase())
