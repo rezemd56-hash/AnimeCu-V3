@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AnimeCu - Menú 10 Contenidos</title>
+    <title>AnimeCu - Menú de Contenidos</title>
     <style>
         /* Estilo General AnimeCu */
         body {
             background-color: #0d0216;
             color: #d1b3ff;
-            font-family: 'Segoe UI', Tahoma, sans-serif;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             margin: 0;
             display: flex;
             flex-direction: column;
@@ -21,44 +21,51 @@
         h1 {
             color: #bc8aff;
             text-shadow: 0 0 15px #7a2cff;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
+            font-size: 2.5rem;
         }
 
+        /* Botones de Talla */
         .tallas-box {
             display: flex;
             gap: 15px;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            justify-content: center;
         }
 
         .btn-talla {
             background: #1a0b2e;
             color: white;
             border: 2px solid #7a2cff;
-            padding: 10px 20px;
+            padding: 12px 25px;
             border-radius: 8px;
             cursor: pointer;
             font-weight: bold;
-            transition: 0.3s;
+            transition: all 0.3s ease;
         }
 
         .btn-talla:hover {
             background: #7a2cff;
-            box-shadow: 0 0 10px #bc8aff;
+            box-shadow: 0 0 15px #bc8aff;
+            transform: translateY(-2px);
         }
 
+        /* Contenedor del Reproductor */
         .reproductor-container {
             width: 100%;
-            max-width: 800px;
+            max-width: 850px;
             background: #000;
             border: 2px solid #3d1b6e;
             border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.9);
         }
 
         video {
             width: 100%;
             display: block;
+            aspect-ratio: 16 / 9;
         }
 
         /* CUADRO FLOTANTE CON SCROLL */
@@ -68,22 +75,23 @@
             bottom: 20px;
             right: 20px;
             width: 320px;
-            max-height: 70vh;
+            max-height: 75vh;
             background: rgba(20, 10, 35, 0.98);
             border: 2px solid #bc8aff;
             border-radius: 15px;
             padding: 15px;
-            box-shadow: 0 0 25px rgba(122, 44, 255, 0.6);
+            box-shadow: 0 0 30px rgba(122, 44, 255, 0.5);
             z-index: 1000;
             overflow-y: auto;
         }
 
+        /* Header del Menú */
         .header-cuadro {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
+            flex-direction: column;
+            gap: 10px;
             border-bottom: 1px solid #4c1d95;
-            padding-bottom: 8px;
+            padding-bottom: 15px;
             margin-bottom: 15px;
             position: sticky;
             top: 0;
@@ -91,32 +99,61 @@
             z-index: 10;
         }
 
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
         .header-cuadro span {
             font-weight: bold;
             font-size: 0.9em;
             color: #bc8aff;
+            letter-spacing: 1px;
+        }
+
+        /* Buscador */
+        .search-box {
+            width: 100%;
+            padding: 8px 12px;
+            background: #0d0216;
+            border: 1px solid #7a2cff;
+            border-radius: 6px;
+            color: #d1b3ff;
+            font-size: 0.85em;
+            outline: none;
+            box-sizing: border-box;
+        }
+
+        .search-box::placeholder {
+            color: #4c1d95;
         }
 
         .btn-cerrar {
             background: #ff4444;
             color: white;
             border: none;
-            width: 26px;
-            height: 26px;
+            width: 28px;
+            height: 28px;
             border-radius: 50%;
             cursor: pointer;
             font-weight: bold;
         }
 
+        /* Secciones y Grids */
+        .seccion-contenedor {
+            margin-bottom: 20px;
+        }
+
         .seccion-titulo {
             background: #2e1065;
             color: #bc8aff;
-            padding: 5px 10px;
+            padding: 6px 12px;
             border-radius: 4px;
-            font-size: 0.8em;
+            font-size: 0.85em;
             font-weight: bold;
-            margin: 15px 0 8px 0;
-            border-left: 3px solid #bc8aff;
+            margin-bottom: 10px;
+            border-left: 4px solid #bc8aff;
         }
 
         .grid-contenidos {
@@ -127,7 +164,7 @@
 
         .item-video {
             background: #1a0b2e;
-            padding: 10px;
+            padding: 12px 5px;
             text-align: center;
             border-radius: 6px;
             cursor: pointer;
@@ -146,6 +183,18 @@
             background: #bc8aff;
             color: #0d0216;
             font-weight: bold;
+            border-color: #fff;
+        }
+
+        /* Ajuste para móviles */
+        @media (max-width: 480px) {
+            #cuadroContenidos {
+                width: 90%;
+                right: 5%;
+                left: 5%;
+                bottom: 10px;
+                max-height: 60vh;
+            }
         }
     </style>
 </head>
@@ -161,16 +210,21 @@
 
     <div class="reproductor-container">
         <video id="videoMain" controls poster="https://via.placeholder.com/800x450/0d0216/bc8aff?text=Selecciona+un+video">
-            <source id="videoSrc" src="https://files.clonix.cam/videos/0ed4205e1625.mp4" type="video/mp4">
+            <source id="videoSrc" src="https://files.clonix.cam/videos/315cbd514cef.mp4" type="video/mp4">
         </video>
     </div>
 
     <div id="cuadroContenidos">
         <div class="header-cuadro">
-            <span>MENÚ DE CONTENIDOS</span>
-            <button class="btn-cerrar" onclick="cerrarCuadro()">×</button>
+            <div class="header-top">
+                <span>MENÚ DE CONTENIDOS</span>
+                <button class="btn-cerrar" onclick="cerrarCuadro()">×</button>
+            </div>
+            <input type="text" id="searchInput" class="search-box" placeholder="Buscar serie o capítulo..." onkeyup="filtrarContenidos()">
         </div>
-        <div id="listaMaestra"></div>
+        
+        <div id="listaMaestra">
+            </div>
     </div>
 
     <script>
@@ -178,53 +232,90 @@
             {
                 titulo: "Kitsune Musume no Ecchi na Oyado", 
                 videos: [
-                    { nombre: "Cap1", url: "https://files.clonix.cam/videos/315cbd514cef.mp4" },
-                    { nombre: "Cap2", url: "" },
-                    { nombre: "Part 2 Cap 2", url: "" }
+                    { nombre: "Cap 1", url: "https://files.clonix.cam/videos/315cbd514cef.mp4" },
+                    { nombre: "Cap 2", url: "" },
+                    { nombre: "Parte 2 Cap 2", url: "" }
                 ]
             },
-            { titulo: "Ecchi na Shintai Sokutei", videos: [{ nombre: "Video 2.1", url: "" }, { nombre: "Video 2.2", url: "" }] },
-            { titulo: "Summer: Inaka no Seikatsu", videos: [{ nombre: "Video 3.1", url: "" }, { nombre: "Video 3.2", url: "" }] },
-            { titulo: "Contenido 4", videos: [{ nombre: "Video 4.1", url: "" }, { nombre: "Video 4.2", url: "" }] },
-            { titulo: "Contenido 5", videos: [{ nombre: "Video 5.1", url: "" }, { nombre: "Video 5.2", url: "" }] },
-            { titulo: "Contenido 6", videos: [{ nombre: "Video 6.1", url: "" }, { nombre: "Video 6.2", url: "" }] },
-            { titulo: "Contenido 7", videos: [{ nombre: "Video 7.1", url: "" }, { nombre: "Video 7.2", url: "" }] },
-            { titulo: "Contenido 8", videos: [{ nombre: "Video 8.1", url: "" }, { nombre: "Video 8.2", url: "" }] },
-            { titulo: "Contenido 9", videos: [{ nombre: "Video 9.1", url: "" }, { nombre: "Video 9.2", url: "" }] },
-            { titulo: "Contenido 10", videos: [{ nombre: "Video 10.1", url: "" }, { nombre: "Video 10.2", url: "" }] }
+            { titulo: "Contenido 2", videos: [{ nombre: "Video 2.1", url: "" }] },
+            { titulo: "Contenido 3", videos: [{ nombre: "Video 3.1", url: "" }] },
+            { titulo: "Contenido 4", videos: [{ nombre: "Video 4.1", url: "" }] },
+            { titulo: "Contenido 5", videos: [{ nombre: "Video 5.1", url: "" }] },
+            { titulo: "Contenido 6", videos: [{ nombre: "Video 6.1", url: "" }] },
+            { titulo: "Contenido 7", videos: [{ nombre: "Video 7.1", url: "" }] },
+            { titulo: "Contenido 8", videos: [{ nombre: "Video 8.1", url: "" }] },
+            { titulo: "Contenido 9", videos: [{ nombre: "Video 9.1", url: "" }] },
+            { titulo: "Contenido 10", videos: [{ nombre: "Video 10.1", url: "" }] }
         ];
 
-        function cargarMenu() {
+        function cargarMenu(filtro = "") {
             const lista = document.getElementById('listaMaestra');
+            const videoActual = document.getElementById('videoSrc').src;
             lista.innerHTML = '';
-            contenidos.forEach(seccion => {
-                const divTitulo = document.createElement('div');
-                divTitulo.className = 'seccion-titulo';
-                divTitulo.innerText = seccion.titulo;
-                lista.appendChild(divTitulo);
 
-                const grid = document.createElement('div');
-                grid.className = 'grid-contenidos';
-                seccion.videos.forEach(vid => {
-                    const item = document.createElement('div');
-                    item.className = 'item-video';
-                    if(vid.url === "https://files.clonix.cam/videos/0ed4205e1625.mp4") item.classList.add('active');
-                    item.innerText = vid.nombre;
-                    item.onclick = function() { cambiarVideo(vid.url, vid.nombre, this); };
-                    grid.appendChild(item);
-                });
-                lista.appendChild(grid);
+            contenidos.forEach(seccion => {
+                // Filtrar videos que coincidan con la búsqueda
+                const videosFiltrados = seccion.videos.filter(vid => 
+                    seccion.titulo.toLowerCase().includes(filtro.toLowerCase()) || 
+                    vid.nombre.toLowerCase().includes(filtro.toLowerCase())
+                );
+
+                if (videosFiltrados.length > 0) {
+                    const contenedorSeccion = document.createElement('div');
+                    contenedorSeccion.className = 'seccion-contenedor';
+
+                    const divTitulo = document.createElement('div');
+                    divTitulo.className = 'seccion-titulo';
+                    divTitulo.innerText = seccion.titulo;
+                    contenedorSeccion.appendChild(divTitulo);
+
+                    const grid = document.createElement('div');
+                    grid.className = 'grid-contenidos';
+
+                    videosFiltrados.forEach(vid => {
+                        const item = document.createElement('div');
+                        item.className = 'item-video';
+                        item.innerText = vid.nombre;
+
+                        if(vid.url !== "" && videoActual.includes(vid.url)) {
+                            item.classList.add('active');
+                        }
+
+                        if(vid.url === "") {
+                            item.style.opacity = "0.4";
+                            item.style.cursor = "default";
+                        }
+
+                        item.onclick = function() { 
+                            if(vid.url !== "") {
+                                cambiarVideo(vid.url, vid.nombre, this); 
+                            } else {
+                                alert("Próximamente: " + vid.nombre);
+                            }
+                        };
+                        grid.appendChild(item);
+                    });
+
+                    contenedorSeccion.appendChild(grid);
+                    lista.appendChild(contenedorSeccion);
+                }
             });
         }
 
-        function abrirCuadro() { document.getElementById('cuadroContenidos').style.display = 'block'; }
-        function cerrarCuadro() { document.getElementById('cuadroContenidos').style.display = 'none'; }
+        function filtrarContenidos() {
+            const texto = document.getElementById('searchInput').value;
+            cargarMenu(texto);
+        }
+
+        function abrirCuadro() {
+            document.getElementById('cuadroContenidos').style.display = 'block';
+        }
+
+        function cerrarCuadro() {
+            document.getElementById('cuadroContenidos').style.display = 'none';
+        }
 
         function cambiarVideo(url, nombre, elemento) {
-            if(url === '') {
-                alert("Próximamente: " + nombre);
-                return;
-            }
             const video = document.getElementById('videoMain');
             const source = document.getElementById('videoSrc');
             source.src = url;
@@ -234,7 +325,7 @@
             elemento.classList.add('active');
         }
 
-        cargarMenu();
+        window.onload = () => cargarMenu();
     </script>
 </body>
 </html>
