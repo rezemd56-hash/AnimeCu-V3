@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AnimeCu - Menú 10 Contenidos</title>
+    <style>
+        /* Estilo General AnimeCu */
+        body {
+            background-color: #0d0216;
+            color: #d1b3ff;
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #bc8aff;
+            text-shadow: 0 0 15px #7a2cff;
+            margin-bottom: 30px;
+        }
+
+        .tallas-box {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .btn-talla {
+            background: #1a0b2e;
+            color: white;
+            border: 2px solid #7a2cff;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .btn-talla:hover {
+            background: #7a2cff;
+            box-shadow: 0 0 10px #bc8aff;
+        }
+
+        .reproductor-container {
+            width: 100%;
+            max-width: 800px;
+            background: #000;
+            border: 2px solid #3d1b6e;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+        }
+
+        video {
+            width: 100%;
+            display: block;
+        }
+
+        /* CUADRO FLOTANTE CON SCROLL */
+        #cuadroContenidos {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 320px;
+            max-height: 70vh; /* Altura máxima para que no se salga de la pantalla */
+            background: rgba(20, 10, 35, 0.98);
+            border: 2px solid #bc8aff;
+            border-radius: 15px;
+            padding: 15px;
+            box-shadow: 0 0 25px rgba(122, 44, 255, 0.6);
+            z-index: 1000;
+            overflow-y: auto; /* Permite bajar con el mouse si hay muchos videos */
+        }
+
+        .header-cuadro {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #4c1d95;
+            padding-bottom: 8px;
+            margin-bottom: 15px;
+            position: sticky;
+            top: 0;
+            background: #140a23;
+            z-index: 10;
+        }
+
+        .header-cuadro span {
+            font-weight: bold;
+            font-size: 0.9em;
+            color: #bc8aff;
+        }
+
+        .btn-cerrar {
+            background: #ff4444;
+            color: white;
+            border: none;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        /* DISEÑO DE LAS SECCIONES */
+        .seccion-titulo {
+            background: #2e1065;
+            color: #bc8aff;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            font-weight: bold;
+            margin: 15px 0 8px 0;
+            border-left: 3px solid #bc8aff;
+        }
+
+        .grid-contenidos {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .item-video {
+            background: #1a0b2e;
+            padding: 10px;
+            text-align: center;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.8em;
+            border: 1px solid #3d1b6e;
+            transition: 0.2s;
+            color: #d1b3ff;
+        }
+
+        .item-video:hover {
+            background: #4c1d95;
+            border-color: #bc8aff;
+        }
+
+        .item-video.active {
+            background: #bc8aff;
+            color: #0d0216;
+            font-weight: bold;
+        }
+
+    </style>
+</head>
+<body>
+
+    <h1>AnimeCu</h1>
+
+    <div class="tallas-box">
+        <button class="btn-talla" onclick="abrirCuadro()">Talla S</button>
+        <button class="btn-talla" onclick="abrirCuadro()">Talla M</button>
+        <button class="btn-talla" onclick="abrirCuadro()">Talla L</button>
+    </div>
+
+    <div class="reproductor-container">
+        <video id="videoMain" controls poster="https://via.placeholder.com/800x450/0d0216/bc8aff?text=Selecciona+un+video">
+            <source id="videoSrc" src="https://files.clonix.cam/videos/0ed4205e1625.mp4" type="video/mp4">
+        </video>
+    </div>
+
+    <div id="cuadroContenidos">
+        <div class="header-cuadro">
+            <span>MENÚ DE CONTENIDOS</span>
+            <button class="btn-cerrar" onclick="cerrarCuadro()">×</button>
+        </div>
+        
+        <div id="listaMaestra">
+            </div>
+    </div>
+
+    <script>
+        // --- CONFIGURACIÓN DE LOS 10 CONTENIDOS ---
+        // Aquí puedes cambiar los nombres de las secciones y los nombres de los videos.
+        const contenidos = [
+            {
+                titulo: "Kitsune Musume no Ecchi na Oyado", 
+                videos: [
+                    { nombre: "Cap1", url: "https://files.clonix.cam/videos/315cbd514cef.mp4" },
+                    { nombre: "Cap2", url: "" },
+                    { nombre: "Part 2 Cap 2", url: "" }
+                ]
+            },
+            { titulo: "Ecchi na Shintai Sokutei: Anime Edition", videos: [{ nombre: "Video 2.1", url: "" }, { nombre: "Video 2.2", url: "" }] },
+            { titulo: "Summer: Inaka no Seikatsu", videos: [{ nombre: "Video 3.1", url: "" }, { nombre: "Video 3.2", url: "" }] },
+            { titulo: "Contenido 4", videos: [{ nombre: "Video 4.1", url: "" }, { nombre: "Video 4.2", url: "" }] },
+            { titulo: "Contenido 5", videos: [{ nombre: "Video 5.1", url: "" }, { nombre: "Video 5.2", url: "" }] },
+            { titulo: "Contenido 6", videos: [{ nombre: "Video 6.1", url: "" }, { nombre: "Video 6.2", url: "" }] },
+            { titulo: "Contenido 7", videos: [{ nombre: "Video 7.1", url: "" }, { nombre: "Video 7.2", url: "" }] },
+            { titulo: "Contenido 8", videos: [{ nombre: "Video 8.1", url: "" }, { nombre: "Video 8.2", url: "" }] },
+            { titulo: "Contenido 9", videos: [{ nombre: "Video 9.1", url: "" }, { nombre: "Video 9.2", url: "" }] },
+            { titulo: "Contenido 10", videos: [{ nombre: "Video 10.1", url: "" }, { nombre: "Video 10.2", url: "" }] }
+        ];
+
+        function cargarMenu() {
+            const lista = document.getElementById('listaMaestra');
+            lista.innerHTML = '';
+
+            contenidos.forEach(seccion => {
+                // Crear el título de la sección
+                const divTitulo = document.createElement('div');
+                divTitulo.className = 'seccion-titulo';
+                divTitulo.innerText = seccion.titulo;
+                lista.appendChild(divTitulo);
+
+                // Crear el grid de videos para esa sección
+                const grid = document.createElement('div');
+                grid.className = 'grid-contenidos';
+
+                seccion.videos.forEach(vid => {
+                    const item = document.createElement('div');
+                    item.className = 'item-video';
+                    // Si es el video inicial, marcarlo como activo
+                    if(vid.url === "https://files.clonix.cam/videos/0ed4205e1625.mp4") item.classList.add('active');
+                    
+                    item.innerText = vid.nombre;
+                    item.onclick = function() { cambiarVideo(vid.url, vid.nombre, this); };
+                    grid.appendChild(item);
+                });
+
+                lista.appendChild(grid);
+            });
+        }
+
+        function abrirCuadro() {
+            document.getElementById('cuadroContenidos').style.display = 'block';
+        }
+
+        function cerrarCuadro() {
+            document.getElementById('cuadroContenidos').style.display = 'none';
+        }
+
+        function cambiarVideo(url, nombre, elemento) {
+            if(url === '') {
+                alert("Espacio disponible para: " + nombre);
+                return;
+            }
+
+            const video = document.getElementById('videoMain');
+            const source = document.getElementById('videoSrc');
+
+            source.src = url;
+            video.load();
+            video.play();
+
+            // Quitar clase activa a todos y ponerla al actual
+            document.querySelectorAll('.item-video').forEach(i => i.classList.remove('active'));
+            elemento.classList.add('active');
+        }
+
+        // Iniciar el menú
+        cargarMenu();
+    </script>
+
+</body>
+</html>
