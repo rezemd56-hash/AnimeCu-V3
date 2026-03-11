@@ -1,336 +1,362 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AnimeCu - Menú de Contenidos</title>
-    <style>
-        /* Estilo General AnimeCu */
-        body {
-            background-color: #0d0216;
-            color: #d1b3ff;
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            margin: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
-            padding: 20px;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AnimeCu - Menú de Contenidos</title>
 
-        h1 {
-            color: #bc8aff;
-            text-shadow: 0 0 15px #7a2cff;
-            margin-bottom: 25px;
-            font-size: 2.5rem;
-        }
+<style>
+body{
+background-color:#0d0216;
+color:#d1b3ff;
+font-family:'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+margin:0;
+display:flex;
+flex-direction:column;
+align-items:center;
+min-height:100vh;
+padding:20px;
+}
 
-        /* Botones de Talla */
-        .tallas-box {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 25px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
+h1{
+color:#bc8aff;
+text-shadow:0 0 15px #7a2cff;
+margin-bottom:25px;
+font-size:2.5rem;
+}
 
-        .btn-talla {
-            background: #1a0b2e;
-            color: white;
-            border: 2px solid #7a2cff;
-            padding: 12px 25px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: all 0.3s ease;
-        }
+.tallas-box{
+display:flex;
+gap:15px;
+margin-bottom:25px;
+flex-wrap:wrap;
+justify-content:center;
+}
 
-        .btn-talla:hover {
-            background: #7a2cff;
-            box-shadow: 0 0 15px #bc8aff;
-            transform: translateY(-2px);
-        }
+.btn-talla{
+background:#1a0b2e;
+color:white;
+border:2px solid #7a2cff;
+padding:12px 25px;
+border-radius:8px;
+cursor:pointer;
+font-weight:bold;
+transition:all .3s ease;
+}
 
-        /* Contenedor del Reproductor */
-        .reproductor-container {
-            width: 100%;
-            max-width: 850px;
-            background: #000;
-            border: 2px solid #3d1b6e;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.9);
-        }
+.btn-talla:hover{
+background:#7a2cff;
+box-shadow:0 0 15px #bc8aff;
+transform:translateY(-2px);
+}
 
-        video {
-            width: 100%;
-            display: block;
-            aspect-ratio: 16 / 9;
-        }
+.reproductor-container{
+width:100%;
+max-width:850px;
+background:#000;
+border:2px solid #3d1b6e;
+border-radius:12px;
+overflow:hidden;
+box-shadow:0 10px 40px rgba(0,0,0,.9);
+}
 
-        /* CUADRO FLOTANTE CON SCROLL */
-        #cuadroContenidos {
-            display: none;
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 320px;
-            max-height: 75vh;
-            background: rgba(20, 10, 35, 0.98);
-            border: 2px solid #bc8aff;
-            border-radius: 15px;
-            padding: 15px;
-            box-shadow: 0 0 30px rgba(122, 44, 255, 0.5);
-            z-index: 1000;
-            overflow-y: auto;
-        }
+video{
+width:100%;
+display:block;
+aspect-ratio:16/9;
+}
 
-        /* Header del Menú */
-        .header-cuadro {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            border-bottom: 1px solid #4c1d95;
-            padding-bottom: 15px;
-            margin-bottom: 15px;
-            position: sticky;
-            top: 0;
-            background: #140a23;
-            z-index: 10;
-        }
+#cuadroContenidos{
+display:none;
+position:fixed;
+bottom:20px;
+right:20px;
+width:320px;
+max-height:75vh;
+background:rgba(20,10,35,.98);
+border:2px solid #bc8aff;
+border-radius:15px;
+padding:15px;
+box-shadow:0 0 30px rgba(122,44,255,.5);
+z-index:1000;
+overflow-y:auto;
+}
 
-        .header-top {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+.header-cuadro{
+display:flex;
+flex-direction:column;
+gap:10px;
+border-bottom:1px solid #4c1d95;
+padding-bottom:15px;
+margin-bottom:15px;
+position:sticky;
+top:0;
+background:#140a23;
+z-index:10;
+}
 
-        .header-cuadro span {
-            font-weight: bold;
-            font-size: 0.9em;
-            color: #bc8aff;
-            letter-spacing: 1px;
-        }
+.header-top{
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
 
-        /* Buscador */
-        .search-box {
-            width: 100%;
-            padding: 8px 12px;
-            background: #0d0216;
-            border: 1px solid #7a2cff;
-            border-radius: 6px;
-            color: #d1b3ff;
-            font-size: 0.85em;
-            outline: none;
-            box-sizing: border-box;
-        }
+.header-cuadro span{
+font-weight:bold;
+font-size:.9em;
+color:#bc8aff;
+letter-spacing:1px;
+}
 
-        .search-box::placeholder {
-            color: #4c1d95;
-        }
+.search-box{
+width:100%;
+padding:8px 12px;
+background:#0d0216;
+border:1px solid #7a2cff;
+border-radius:6px;
+color:#d1b3ff;
+font-size:.85em;
+outline:none;
+box-sizing:border-box;
+}
 
-        .btn-cerrar {
-            background: #ff4444;
-            color: white;
-            border: none;
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            cursor: pointer;
-            font-weight: bold;
-        }
+.search-box::placeholder{
+color:#4c1d95;
+}
 
-        /* Secciones y Grids */
-        .seccion-contenedor {
-            margin-bottom: 20px;
-        }
+.btn-cerrar{
+background:#ff4444;
+color:white;
+border:none;
+width:28px;
+height:28px;
+border-radius:50%;
+cursor:pointer;
+font-weight:bold;
+}
 
-        .seccion-titulo {
-            background: #2e1065;
-            color: #bc8aff;
-            padding: 6px 12px;
-            border-radius: 4px;
-            font-size: 0.85em;
-            font-weight: bold;
-            margin-bottom: 10px;
-            border-left: 4px solid #bc8aff;
-        }
+.seccion-contenedor{
+margin-bottom:20px;
+}
 
-        .grid-contenidos {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-        }
+.seccion-titulo{
+background:#2e1065;
+color:#bc8aff;
+padding:6px 12px;
+border-radius:4px;
+font-size:.85em;
+font-weight:bold;
+margin-bottom:10px;
+border-left:4px solid #bc8aff;
+}
 
-        .item-video {
-            background: #1a0b2e;
-            padding: 12px 5px;
-            text-align: center;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 0.8em;
-            border: 1px solid #3d1b6e;
-            transition: 0.2s;
-            color: #d1b3ff;
-        }
+.grid-contenidos{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:10px;
+}
 
-        .item-video:hover {
-            background: #4c1d95;
-            border-color: #bc8aff;
-        }
+.item-video{
+background:#1a0b2e;
+padding:12px 5px;
+text-align:center;
+border-radius:6px;
+cursor:pointer;
+font-size:.8em;
+border:1px solid #3d1b6e;
+transition:.2s;
+color:#d1b3ff;
+}
 
-        .item-video.active {
-            background: #bc8aff;
-            color: #0d0216;
-            font-weight: bold;
-            border-color: #fff;
-        }
+.item-video:hover{
+background:#4c1d95;
+border-color:#bc8aff;
+}
 
-        /* Ajuste para móviles */
-        @media (max-width: 480px) {
-            #cuadroContenidos {
-                width: 90%;
-                right: 5%;
-                left: 5%;
-                bottom: 10px;
-                max-height: 60vh;
-            }
-        }
-    </style>
+.item-video.active{
+background:#bc8aff;
+color:#0d0216;
+font-weight:bold;
+border-color:#fff;
+}
+
+@media(max-width:480px){
+#cuadroContenidos{
+width:90%;
+right:5%;
+left:5%;
+bottom:10px;
+max-height:60vh;
+}
+}
+</style>
 </head>
+
 <body>
 
-    <h1>AnimeCu</h1>
+<h1>AnimeCu</h1>
 
-    <div class="tallas-box">
-        <button class="btn-talla" onclick="abrirCuadro()">Talla S</button>
-        <button class="btn-talla" onclick="abrirCuadro()">Talla M</button>
-        <button class="btn-talla" onclick="abrirCuadro()">Talla L</button>
-    </div>
+<div class="tallas-box">
+<button class="btn-talla" onclick="abrirCuadro()">Talla S</button>
+<button class="btn-talla" onclick="abrirCuadro()">Talla M</button>
+<button class="btn-talla" onclick="abrirCuadro()">Talla L</button>
+</div>
 
-    <div class="reproductor-container">
-        <video id="videoMain" controls poster="https://via.placeholder.com/800x450/0d0216/bc8aff?text=Selecciona+un+video">
-            <source id="videoSrc" src="https://files.clonix.cam/videos/315cbd514cef.mp4" type="video/mp4">
-        </video>
-    </div>
+<div class="reproductor-container">
+<video id="videoMain" controls playsinline poster="https://via.placeholder.com/800x450/0d0216/bc8aff?text=Selecciona+un+video">
+<source id="videoSrc" src="https://files.clonix.cam/videos/315cbd514cef.mp4" type="video/mp4">
+</video>
+</div>
 
-    <div id="cuadroContenidos">
-        <div class="header-cuadro">
-            <div class="header-top">
-                <span>MENÚ DE CONTENIDOS</span>
-                <button class="btn-cerrar" onclick="cerrarCuadro()">×</button>
-            </div>
-            <input type="text" id="searchInput" class="search-box" placeholder="Buscar serie o capítulo..." onkeyup="filtrarContenidos()">
-        </div>
-        
-        <div id="listaMaestra"></div>
-    </div>
+<div id="cuadroContenidos">
 
-    <script>
-        const contenidos = [
-            {
-                titulo: "Kitsune Musume no Ecchi na Oyado", 
-                videos: [
-                    { nombre: "Cap 1", url: "https://files.clonix.cam/videos/315cbd514cef.mp4" },
-                    { nombre: "Cap 2", url: "" },
-                    { nombre: "Parte 2 Cap 2", url: "" }
-                ]
-            },
-            { titulo: "Bocchi", videos: [{ nombre: "Bocchi en su práctica", url: "https://files.clonix.cam/videos/1859d9fa470d.mp4" }] },
-            { 
-                titulo: "El duro trabajo de Varesa", 
-                videos: [
-                    { nombre: "Varesa", url:  "https://files.clonix.cam/videos/1e437866ecdd.mp4" },
-                    { nombre: "Varesa2", url: "https://files.clonix.cam/videos/8a6a394cf974.mp4" }
-                ]
-            },
-            { titulo: "Crema Batida", videos: [{ nombre: "Batido", url: "https://files.clonix.cam/videos/9961c3d179bd.mp4" }] },
-            { titulo: "Mona del lago", videos: [{ nombre: "Mona", url: "https://files.clonix.cam/videos/bdd5e602bc78.mp4" }] },
-            { titulo: "Ella solo quería mirar", videos: [{ nombre: "Mal vista", url: "https://files.clonix.cam/videos/3e6a33ed844a.mp4" }] },
-            { titulo: "Comida de emergencia", videos: [{ nombre: "Paimon", url: "https://files.clonix.cam/videos/e0f0d8222d53.mp4" }] },
-            { titulo: "yoimiyaxbeat", videos: [{ nombre: "Dance", url: "https://files.clonix.cam/videos/1d71311c16db.mp4" }] },
-            { titulo: "Hombre motosierra", videos: [{ nombre: "La motosierra", url: "https://files.clonix.cam/videos/588c30d97b68.mp4" }] },
-            { titulo: "Jonas", videos: [{ nombre: "Game", url: "https://files.clonix.cam/videos/8a1ee9f727ca.mp4" }] },
-            { titulo: "Gawr Gura", videos: [{ nombre: "Tiburona", url: "https://files.catbox.moe/vuinlq.mp4" }] }
-        ];
+<div class="header-cuadro">
 
-        function cargarMenu(filtro = "") {
-            const lista = document.getElementById('listaMaestra');
-            const videoActual = document.getElementById('videoSrc').src;
-            lista.innerHTML = '';
+<div class="header-top">
+<span>MENÚ DE CONTENIDOS</span>
+<button class="btn-cerrar" onclick="cerrarCuadro()">×</button>
+</div>
 
-            contenidos.forEach(seccion => {
-                const videosFiltrados = seccion.videos.filter(vid => 
-                    seccion.titulo.toLowerCase().includes(filtro.toLowerCase()) || 
-                    vid.nombre.toLowerCase().includes(filtro.toLowerCase())
-                );
+<input type="text" id="searchInput" class="search-box" placeholder="Buscar serie o capítulo..." onkeyup="filtrarContenidos()">
 
-                if (videosFiltrados.length > 0) {
-                    const contenedorSeccion = document.createElement('div');
-                    contenedorSeccion.className = 'seccion-contenedor';
+</div>
 
-                    const divTitulo = document.createElement('div');
-                    divTitulo.className = 'seccion-titulo';
-                    divTitulo.innerText = seccion.titulo;
-                    contenedorSeccion.appendChild(divTitulo);
+<div id="listaMaestra"></div>
 
-                    const grid = document.createElement('div');
-                    grid.className = 'grid-contenidos';
+</div>
 
-                    videosFiltrados.forEach(vid => {
-                        const item = document.createElement('div');
-                        item.className = 'item-video';
-                        item.innerText = vid.nombre;
+<script>
 
-                        if(vid.url !== "" && videoActual.includes(vid.url)) {
-                            item.classList.add('active');
-                        }
+const contenidos=[
 
-                        if(vid.url === "") {
-                            item.style.opacity = "0.4";
-                            item.style.cursor = "default";
-                        }
+{
+titulo:"Kitsune Musume no Ecchi na Oyado",
+videos:[
+{nombre:"Cap 1",url:"https://files.clonix.cam/videos/315cbd514cef.mp4"},
+{nombre:"Cap 2",url:""},
+{nombre:"Parte 2 Cap 2",url:""}
+]
+},
 
-                        item.onclick = function() { 
-                            if(vid.url !== "") {
-                                cambiarVideo(vid.url, vid.nombre, this); 
-                            } else {
-                                alert("Próximamente: " + vid.nombre);
-                            }
-                        };
-                        grid.appendChild(item);
-                    });
+{titulo:"Bocchi",videos:[{nombre:"Bocchi en su práctica",url:"https://files.clonix.cam/videos/1859d9fa470d.mp4"}]},
 
-                    contenedorSeccion.appendChild(grid);
-                    lista.appendChild(contenedorSeccion);
-                }
-            });
-        }
+{
+titulo:"El duro trabajo de Varesa",
+videos:[
+{nombre:"Varesa",url:"https://files.clonix.cam/videos/1e437866ecdd.mp4"},
+{nombre:"Varesa2",url:"https://files.clonix.cam/videos/8a6a394cf974.mp4"}
+]
+},
 
-        function filtrarContenidos() {
-            const texto = document.getElementById('searchInput').value;
-            cargarMenu(texto);
-        }
+{titulo:"Crema Batida",videos:[{nombre:"Batido",url:"https://files.clonix.cam/videos/9961c3d179bd.mp4"}]},
+{titulo:"Mona del lago",videos:[{nombre:"Mona",url:"https://files.clonix.cam/videos/bdd5e602bc78.mp4"}]},
+{titulo:"Ella solo quería mirar",videos:[{nombre:"Mal vista",url:"https://files.clonix.cam/videos/3e6a33ed844a.mp4"}]},
+{titulo:"Comida de emergencia",videos:[{nombre:"Paimon",url:"https://files.clonix.cam/videos/e0f0d8222d53.mp4"}]},
+{titulo:"yoimiyaxbeat",videos:[{nombre:"Dance",url:"https://files.clonix.cam/videos/1d71311c16db.mp4"}]},
+{titulo:"Hombre motosierra",videos:[{nombre:"La motosierra",url:"https://files.clonix.cam/videos/588c30d97b68.mp4"}]},
+{titulo:"Jonas",videos:[{nombre:"Game",url:"https://files.clonix.cam/videos/8a1ee9f727ca.mp4"}]},
+{titulo:"Gawr Gura",videos:[{nombre:"Tiburona",url:"https://files.catbox.moe/vuinlq.mp4"}]}
 
-        function abrirCuadro() {
-            document.getElementById('cuadroContenidos').style.display = 'block';
-        }
+];
 
-        function cerrarCuadro() {
-            document.getElementById('cuadroContenidos').style.display = 'none';
-        }
+function cargarMenu(filtro=""){
 
-        function cambiarVideo(url, nombre, elemento) {
-            const video = document.getElementById('videoMain');
-            const source = document.getElementById('videoSrc');
-            source.src = url;
-            video.load();
-            video.play();
-            document.querySelectorAll('.item-video').forEach(i => i.classList.remove('active'));
-            elemento.classList.add('active');
-        }
+const lista=document.getElementById("listaMaestra");
+const videoActual=document.getElementById("videoSrc").src;
 
-        window.onload = () => cargarMenu();
-    </script>
+lista.innerHTML="";
+
+contenidos.forEach(seccion=>{
+
+const videosFiltrados=seccion.videos.filter(vid=>
+seccion.titulo.toLowerCase().includes(filtro.toLowerCase())||
+vid.nombre.toLowerCase().includes(filtro.toLowerCase())
+);
+
+if(videosFiltrados.length>0){
+
+const contenedorSeccion=document.createElement("div");
+contenedorSeccion.className="seccion-contenedor";
+
+const divTitulo=document.createElement("div");
+divTitulo.className="seccion-titulo";
+divTitulo.innerText=seccion.titulo;
+
+contenedorSeccion.appendChild(divTitulo);
+
+const grid=document.createElement("div");
+grid.className="grid-contenidos";
+
+videosFiltrados.forEach(vid=>{
+
+const item=document.createElement("div");
+item.className="item-video";
+item.innerText=vid.nombre;
+
+if(vid.url!=="" && videoActual.includes(vid.url)){
+item.classList.add("active");
+}
+
+if(vid.url===""){
+item.style.opacity="0.4";
+item.style.cursor="default";
+}
+
+item.onclick=function(){
+
+if(vid.url!==""){
+cambiarVideo(vid.url,vid.nombre,this);
+}else{
+alert("Próximamente: "+vid.nombre);
+}
+
+};
+
+grid.appendChild(item);
+
+});
+
+contenedorSeccion.appendChild(grid);
+lista.appendChild(contenedorSeccion);
+
+}
+
+});
+
+}
+
+function filtrarContenidos(){
+const texto=document.getElementById("searchInput").value;
+cargarMenu(texto);
+}
+
+function abrirCuadro(){
+document.getElementById("cuadroContenidos").style.display="block";
+}
+
+function cerrarCuadro(){
+document.getElementById("cuadroContenidos").style.display="none";
+}
+
+function cambiarVideo(url,nombre,elemento){
+
+const video=document.getElementById("videoMain");
+const source=document.getElementById("videoSrc");
+
+source.src=url;
+
+video.load();
+video.play();
+
+document.querySelectorAll(".item-video").forEach(i=>i.classList.remove("active"));
+
+elemento.classList.add("active");
+
+}
+
+window.onload=()=>cargarMenu();
+
+</script>
+
 </body>
 </html>
