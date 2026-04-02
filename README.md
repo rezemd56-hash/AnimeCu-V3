@@ -15,10 +15,10 @@ Hola está es una página web para ver videos que iré poniendo por ahora trae c
 | :--- |      :---      |
 | Owner | [Cuervita](https://github.com/rezemd56-hash/) |
 
-## 🛠️ Instalación y Uso
+<details>
+   <summary>Instalacion</summary>
 
-Copia el lini para acseder a AnimeCu
-1. **Clonar el Link:**
-   ```bash
-   https://rezemd56-hash.github.io/AnimeCu-V3/
-   
+
+[Anime-Cu](https://rezemd56-hash.github.io/AnimeCu-V3/)
+
+</details>
